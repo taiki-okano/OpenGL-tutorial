@@ -23,6 +23,11 @@ GLuint CreateProgram(const char* vt_path, const char* fm_path){
 		std::cerr << "Failed to open : " << vt_path << std::endl;
 	}
 
+	if(PrintShaderInfoLog(vtShaderId, vt_path)){
+		glAttachShader(programId, vtShaderId);
+	}
+	glDeleteShader(vtShaderId);
+
 	std::string fmShaderCode;
 	std::ifstream fmShaderStream(fm_path, std::ios::in);
 	if(fmShaderStream.is_open()){
@@ -41,10 +46,6 @@ GLuint CreateProgram(const char* vt_path, const char* fm_path){
 		std::cerr << "Failed to open : " << fm_path << std::endl;
 	}
 
-	if(PrintShaderInfoLog(vtShaderId, vt_path)){
-		glAttachShader(programId, vtShaderId);
-	}
-	glDeleteShader(vtShaderId);
 	if(PrintShaderInfoLog(fmShaderId, fm_path)){
 		glAttachShader(programId, fmShaderId);
 	}

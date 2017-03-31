@@ -1,8 +1,8 @@
-#version 330 core
+#version 150 core
 
-layout(location = 0) in vec3 vertexPosition_modelspace;
+uniform float aspect;
+in vec4 position;
 
 void main(){
-	gl_Position.xyz = vertexPosition_modelspace;
-	gl_Position.w = 1.0;
+	gl_Position = position * vec4(1.0 / aspect, 1.0, 1.0, 1.0);
 }
